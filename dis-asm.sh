@@ -1,0 +1,1 @@
+avr-objdump -dz *.elf
