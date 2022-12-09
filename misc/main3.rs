@@ -5,7 +5,6 @@
 fn panic(_panic_info: &core::panic::PanicInfo) -> ! { loop {} }
 
 #[no_mangle]
-pub extern "C" fn main() -> ! {
+pub extern "C" fn main() {
 
-    loop {}
 }

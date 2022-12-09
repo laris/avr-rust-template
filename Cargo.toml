@@ -1,15 +1,15 @@
 [package]
-name = "template-bin"
+name = "avr-template-bin"
 version = "0.0.1"
 authors = ["Your Name <you@example.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
 
 [dependencies]
-#avr-std-stub = "1.0"
 
-[profile.dev]
+
+# ---- profile ----
+# copy from avr-hal
+[profile.dev] 
 panic = "abort"
 lto = true
 opt-level = "s"
@@ -20,3 +20,21 @@ lto = true
 opt-level = "s"
 codegen-units = 1
 debug = true
+
+# ---- works but need check in future ----
+# [profile.dev] panic = "abort"
+# debug = true
+# debug-assertions = false
+# overflow-checks = false
+# lto = false
+# opt-level = "s"
+# codegen-units = 1
+#
+# [profile.release]
+# panic = "abort"
+# debug = true
+# #debug-assertions = false
+# #overflow-checks = false
+# lto = true
+# opt-level = "s"
+# codegen-units = 1

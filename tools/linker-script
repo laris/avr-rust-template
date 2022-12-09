@@ -1,0 +1,48 @@
+/*
+ * This script is a work in progress
+ *
+ * Debugging the output with `avr-objdump -w -s -x -D output.elf` is very useful.
+ */
+
+/* TODO: Verify memory addresses and lengths */
+MEMORY {
+  text      (rx)   : ORIGIN = 0x000000, LENGTH = 32K
+  registers (rw!x) : ORIGIN = 0x800000, LENGTH = 256
+  data      (rw!x) : ORIGIN = 0x800100, LENGTH = 2K
+}
+
+SECTIONS {
+  .text : {
+    /*
+     * The interrupt vector routines *must* start at address 0x0000
+     *
+     * Preserve every symbol in the Interrupt Vector Routines table to
+     * prevent them from being garbage collected.
+     */
+    KEEP(* (.ivr));
+
+    /* The rest of our code */
+    * (.text* .progmem.data*);
+  } >text
+
+  /* Data initialized to a value */
+  .data : AT(ADDR(.text) + SIZEOF(.text)) {
+    __data_start = .;
+    * (.data* .rodata*);
+    __data_end = .;
+  } >data
+
+  /* Data not initialized to a value */
+  /* Even possible in Rust? */
+  /* Yes: zero-initialized */
+  .bss : AT(ADDR(.data) + SIZEOF(.data)) {
+    __bss_start = .;
+    /* Can we avoid actually copying this in? */
+    * (.bss*);
+    __bss_end = .;
+  } >data
+
+  /* Set up variables for initialization routines */
+  __data_load_start = LOADADDR(.data);
+  __data_load_end = __data_load_start + SIZEOF(.data);
+}

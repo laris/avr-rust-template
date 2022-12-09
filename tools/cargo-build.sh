@@ -1,12 +1,15 @@
 #!/usr/bin/env sh
 set -e
 #set -ex
+# modified from mkhex.sh
 
 CRATE_NAME="$(grep name Cargo.toml | cut -f2 -d"=" | cut -f2 -d"\"")"
 AVR_TARGET="atmega328p"
 AVR_TARGET_JSON="avr-$AVR_TARGET.json"
 
-cargo build --target $AVR_TARGET_JSON -Z build-std=core --all --release
+#cargo                       build -Z build-std=core --target $AVR_TARGET_JSON    --release --all
+cargo +nightly-2021-01-07    build -Z build-std=core --target avr-atmega328p.json --release
+#cargo                       build -Z build-std=core --target avr-atmega328p.json --release -v
 
 #if [ $# -gt 2 -o $1 = "--help" ]; then
 #    echo "usage: $0 [--release|--debug] <elf-name>" >&2

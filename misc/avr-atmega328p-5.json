@@ -16,7 +16,8 @@
   "max-atomic-width": 8,
   "pre-link-args": {
     "gcc": [
-      "-mmcu=atmega328p"
+      "-mmcu=atmega328p",
+      "-nostartfiles"
     ]
   },
   "target-c-int-width": "16",

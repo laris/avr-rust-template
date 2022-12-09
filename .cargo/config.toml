@@ -1,0 +1,15 @@
+[build]
+target = "avr-atmega328p.json"
+
+[unstable]
+build-std = ["core"]
+
+# -e main, run jump point
+# -nostartfiles, no c runtime
+# -T linker-script, isr
+[target.'cfg(all(target_arch = "avr"))']
+rustflags = [
+  "-Clink-args=-e main",
+  "-Clink-args=-nostartfiles",
+  "-Clink-args=-T tools/linker-script tools/interrupt_vector.S",
+]
