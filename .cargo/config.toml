@@ -1,5 +1,6 @@
 [build]
-target = "avr-atmega328p.json"
+#target = "avr-atmega328p.json"
+target = "avr-unknown-gnu-atmega328"
 
 [unstable]
 build-std = ["core"]
@@ -8,8 +9,12 @@ build-std = ["core"]
 # -nostartfiles, no c runtime
 # -T linker-script, isr
 [target.'cfg(all(target_arch = "avr"))']
-rustflags = [
-  "-Clink-args=-e main",
-  "-Clink-args=-nostartfiles",
-  "-Clink-args=-T tools/linker-script tools/interrupt_vector.S",
-]
+ rustflags = [
+   "-Clink-args=-e main",
+   "-Clink-args=-T tools/linker-script",# tools/interrupt_vector.S",
+  #"-Clink-args=-T tools/linker-script tools/interrupt_vector.S",
+  #"-Clink-args=-nostartfiles",
+  #"-Clink-args=-nodefaultlibs",
+  #"-Clink-args=-nolibc",
+  #"-Clink-args=-nostdlib",
+ ]
