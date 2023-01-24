@@ -1,1 +1,1 @@
-avr-objdump -dzrwx target/avr-atmega328p/release/*.elf
+avr-objdump -dzrwx target/avr-*/release/*.elf
