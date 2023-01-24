@@ -1,1 +1,1 @@
-avr-objdump -dzrwx target/avr-atmega328p/debug/*.elf
+avr-objdump -dzrwx target/avr-*/debug/*.elf
